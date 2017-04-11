@@ -1,23 +1,43 @@
 from tkinter import *
 
-root = Tk()
+map_1 = [
+        [1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0],
+        ]
 
-canvas = Canvas(root, width='720', height='720', background="black")
-canvas.pack()
+class Map(object):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.root = Tk()
+        self.canvas = Canvas(self.root, width = self.width, height = self.height)
+        self.canvas.pack()
 
-class FloorTile(object):
-    def __init__(self, x = 0, y = 0):
-        self.x = x
-        self.y = y
-        self.background = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/floor.gif")
-        self.walk_on = True
+        self.display()
+        self.root.mainloop()
 
-    def draw_floor_tile(self):
-        for column in range(10):
-            canvas.create_image(self.x, self.y, anchor="nw", image=self.background)
-            self.y += 72
+    def draw_floor_tile(self, x = 0, y = 0):
+        self.canvas.create_image(x, y, anchor="nw", image=self.floor)
 
-floormap = FloorTile()
-floormap.draw_floor_tile()
+    def draw_wall_tile(self, x = 0, y = 0):
+        self.canvas.create_image(x, y, anchor="nw", image=self.wall)
 
-root.mainloop()
+    def display(self):
+        self.floor = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/floor.gif")
+        self.wall = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/wall.gif")
+        for row in range(len(map_1)):
+            for cell in range(len(map_1[row])):
+                if map_1[cell][row] == 0:
+                    self.draw_floor_tile(row*72, cell*72)
+                else:
+                    self.draw_wall_tile(row*72, cell*72)
+
+floormap = Map("720", "720")
