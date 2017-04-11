@@ -22,12 +22,13 @@ class Game(object):
         self.canvas.pack()
 
         floormap = Map(self.canvas)
-        floormap.display()
+        
         self.root.mainloop()
 
 class Map(object):
     def __init__(self, canvas):
         self.canvas = canvas
+        self.display()
 
     def draw_floor_tile(self, x = 0, y = 0):
         self.canvas.create_image(x, y, anchor="nw", image=self.floor)
