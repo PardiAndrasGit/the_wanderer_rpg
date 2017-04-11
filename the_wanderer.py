@@ -1,11 +1,11 @@
 from tkinter import *
 
 map_1 = [
-        [1,0,0,0,0,0,0,0,0,0],
+        [0,1,0,0,0,0,0,0,0,0],
+        [0,1,0,0,0,0,0,0,0,0],
+        [0,1,1,1,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
+        [1,1,1,1,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0],
@@ -13,16 +13,21 @@ map_1 = [
         [0,0,0,0,0,0,0,0,0,0],
         ]
 
-class Map(object):
-    def __init__(self, width, height):
+class Game(object):
+    def __init__(self, width = 0, height = 0):
         self.width = width
         self.height = height
         self.root = Tk()
         self.canvas = Canvas(self.root, width = self.width, height = self.height)
         self.canvas.pack()
 
-        self.display()
+        floormap = Map(self.canvas)
+        floormap.display()
         self.root.mainloop()
+
+class Map(object):
+    def __init__(self, canvas):
+        self.canvas = canvas
 
     def draw_floor_tile(self, x = 0, y = 0):
         self.canvas.create_image(x, y, anchor="nw", image=self.floor)
@@ -31,13 +36,17 @@ class Map(object):
         self.canvas.create_image(x, y, anchor="nw", image=self.wall)
 
     def display(self):
-        self.floor = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/floor.gif")
+        tile = 72
         self.wall = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/wall.gif")
+        self.floor = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/floor.gif")
         for row in range(len(map_1)):
             for cell in range(len(map_1[row])):
                 if map_1[cell][row] == 0:
-                    self.draw_floor_tile(row*72, cell*72)
+                    self.draw_floor_tile(row*tile, cell*tile)
                 else:
-                    self.draw_wall_tile(row*72, cell*72)
+                    self.draw_wall_tile(row*tile, cell*tile)
 
-floormap = Map("720", "720")
+class Character():
+    pass
+
+game = Game("720", "720")
