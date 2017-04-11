@@ -13,11 +13,9 @@ class FloorTile(object):
         self.walk_on = True
 
     def draw_floor_tile(self):
-        canvas.create_image(0, 0, anchor="nw", image=self.background)
-
-
-# self.horizon = PhotoImage(file = './assets/floor.png')
-# 		self.canvas.create_image(0, self.height//4 * 3, anchor="nw", image=self.horizon)
+        for column in range(10):
+            canvas.create_image(self.x, self.y, anchor="nw", image=self.background)
+            self.y += 72
 
 floormap = FloorTile()
 floormap.draw_floor_tile()
