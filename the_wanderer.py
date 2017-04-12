@@ -61,17 +61,26 @@ class Hero(Character):
         self.character_img_right = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/hero-right.gif")
         self.character_img_left = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/hero-left.gif")
 
+        self.draw_character(self.x, self.y, self.character_img_down)
+
     def move_hero(self, e):
-        if e.keycode == 8320768: #up
-            self.draw_character(self.x, self.y, self.character_img_up)
-            # box.testBoxY = box.testBoxY - self.tile
-        elif e.keycode == 8255233: #down
-            self.draw_character(self.x, self.y, self.character_img_down)
-            # box.testBoxY = box.testBoxY + self.tile
-        elif e.keycode == 8189699: #right
-            self.draw_character(self.x, self.y, self.character_img_right)
-        elif e.keycode == 8124162: #left
-            self.draw_character(self.x, self.y, self.character_img_left)
+        if e.keycode == 8320768: # up
+            if self.y > 0:
+                self.y -= 1
+                self.draw_character(self.x, self.y, self.character_img_up)
+        elif e.keycode == 8255233: # down
+            if self.y < 9:
+                self.y += 1
+                self.draw_character(self.x, self.y, self.character_img_down)
+        elif e.keycode == 8189699: # right
+            if self.x < 9:
+                self.x += 1
+                self.draw_character(self.x, self.y, self.character_img_right)
+        elif e.keycode == 8124162: # left
+            if self.x > 0:
+                self.x -= 1
+                self.draw_character(self.x, self.y, self.character_img_left)
+                
 
         # box.draw(canvas)
 
