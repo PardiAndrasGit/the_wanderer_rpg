@@ -22,6 +22,9 @@ class GameLogic(object):
         self.canvas.pack()
 
         floormap = Map(self.canvas)
+        # hero = Hero(self.canvas)
+        hero = Character(self.canvas, "img/hero-down.gif")
+        hero.draw_character(0, 0)
 
         self.root.mainloop()
 
@@ -48,7 +51,21 @@ class Map(object):
                 else:
                     self.draw_wall_tile(row*tile, cell*tile)
 
-class Character():
-    pass
+class Character(object):
+    def __init__(self, canvas, character_img):
+        self.canvas = canvas
+        self.character_img = character_img
+        self.character_img = PhotoImage(file = character_img)
+
+        # draw_character(0, 0)
+
+    def draw_character(self, x, y):
+        self.canvas.create_image(x, y, anchor=NW, image=self.character_img)
+
+# class Hero(Character):
+#     def __init__(self, canvas):
+#         super().__init__(canvas)
+#         self.character_img = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/hero-down.gif")
+
 
 game = GameLogic("720", "720")
