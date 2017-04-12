@@ -80,7 +80,11 @@ class Hero(Character):
         if e.keycode == 8320768: # up
             if self.y > 0:
                 self.y -= 1
-                self.draw_character(self.x, self.y, self.character_img_up)
+                if hero_on_map.get_tile_status(map_1, self.x, self.y) == True:
+                    self.draw_character(self.x, self.y, self.character_img_up)
+                else:
+                    self.y += 1
+                    self.draw_character(self.x, self.y, self.character_img_up)
         elif e.keycode == 8255233: # down
             if self.y < 9:
                 self.y += 1
@@ -92,10 +96,18 @@ class Hero(Character):
         elif e.keycode == 8189699: # right
             if self.x < 9:
                 self.x += 1
-                self.draw_character(self.x, self.y, self.character_img_right)
+                if hero_on_map.get_tile_status(map_1, self.x, self.y) == True:
+                    self.draw_character(self.x, self.y, self.character_img_right)
+                else:
+                    self.x -= 1
+                    self.draw_character(self.x, self.y, self.character_img_right)
         elif e.keycode == 8124162: # left
             if self.x > 0:
                 self.x -= 1
-                self.draw_character(self.x, self.y, self.character_img_left)
+                if hero_on_map.get_tile_status(map_1, self.x, self.y) == True:
+                    self.draw_character(self.x, self.y, self.character_img_left)
+                else:
+                    self.x += 1
+                    self.draw_character(self.x, self.y, self.character_img_left)
 
 game = GameLogic("720", "720")
