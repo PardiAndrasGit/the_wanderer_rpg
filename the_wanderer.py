@@ -28,18 +28,19 @@ class GameLogic(object):
 class Map(object):
     def __init__(self, canvas):
         self.canvas = canvas
+        self.floor = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/floor.gif")
+        self.wall = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/wall.gif")
+
         self.map_display()
 
-    def draw_floor_tile(self, x = 0, y = 0):
+    def draw_floor_tile(self, x, y):
         self.canvas.create_image(x, y, anchor=NW, image=self.floor)
 
-    def draw_wall_tile(self, x = 0, y = 0):
+    def draw_wall_tile(self, x, y):
         self.canvas.create_image(x, y, anchor=NW, image=self.wall)
 
     def map_display(self):
         tile = 72
-        self.wall = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/wall.gif")
-        self.floor = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/floor.gif")
         for row in range(len(map_1)):
             for cell in range(len(map_1[row])):
                 if map_1[cell][row] == 0:
