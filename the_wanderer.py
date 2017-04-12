@@ -43,15 +43,19 @@ class Character(object):
         self.canvas = canvas
         self.x = 0
         self.y = 0
+        self.tile = 72
 
     def draw_character(self, x, y, character_img):
-        self.canvas.create_image(x, y, anchor=NW, image=character_img)
+        self.canvas.create_image(x*self.tile, y*self.tile, anchor=NW, image=character_img)
 
 class Hero(Character):
     def __init__(self, canvas):
         super().__init__(canvas)
         self.character_img_down = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/hero-down.gif")
+        self.character_img_up = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/hero-up.gif")
+        self.character_img_right = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/hero-right.gif")
+        self.character_img_left = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/hero-left.gif")
 
-        self.draw_character(self.x, self.y, self.character_img_down)
+        self.draw_character(self.x, self.y, self.character_img_right)
 
 game = GameLogic("720", "720")
