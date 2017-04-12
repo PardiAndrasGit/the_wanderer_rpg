@@ -20,13 +20,17 @@ class GameLogic(object):
         self.canvas.focus_set()
         self.root.mainloop()
 
+    # def can_move(self):
+    #     if floormap.get_tile_status() == True:
+    #         hero.move_hero()
+
 class Map(object):
     def __init__(self, canvas):
         self.canvas = canvas
         self.floor = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/floor.gif")
         self.wall = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/wall.gif")
-
         self.map_display(map_1)
+
 
     def draw_floor_tile(self, x, y):
         self.canvas.create_image(x, y, anchor=NW, image=self.floor)
@@ -42,6 +46,12 @@ class Map(object):
                     self.draw_floor_tile(row*tile, cell*tile)
                 else:
                     self.draw_wall_tile(row*tile, cell*tile)
+
+    def get_tile_status(self, board, x, y):
+        if board[y][x] == 0:
+            return True
+        else:
+            return False
 
 class Character(object):
     def __init__(self, canvas):
@@ -66,6 +76,7 @@ class Hero(Character):
         self.draw_character(self.x, self.y, self.character_img_down)
 
     def move_hero(self, e):
+        hero_on_map = Map(self.canvas)
         if e.keycode == 8320768: # up
             if self.y > 0:
                 self.y -= 1
@@ -73,7 +84,8 @@ class Hero(Character):
         elif e.keycode == 8255233: # down
             if self.y < 9:
                 self.y += 1
-                self.draw_character(self.x, self.y, self.character_img_down)
+                if hero_on_map.get_tile_status(map_1, self.x, self.y) == True:
+                    self.draw_character(self.x, self.y, self.character_img_down)
         elif e.keycode == 8189699: # right
             if self.x < 9:
                 self.x += 1
@@ -82,6 +94,5 @@ class Hero(Character):
             if self.x > 0:
                 self.x -= 1
                 self.draw_character(self.x, self.y, self.character_img_left)
-
 
 game = GameLogic("720", "720")
