@@ -86,6 +86,9 @@ class Hero(Character):
                 self.y += 1
                 if hero_on_map.get_tile_status(map_1, self.x, self.y) == True:
                     self.draw_character(self.x, self.y, self.character_img_down)
+                else:
+                    self.y -= 1
+                    self.draw_character(self.x, self.y, self.character_img_down)
         elif e.keycode == 8189699: # right
             if self.x < 9:
                 self.x += 1
