@@ -49,9 +49,11 @@ class Character(object):
         self.x = 0
         self.y = 0
         self.tile = 72
+        self.character_delete = 0
 
     def draw_character(self, x, y, character_img):
-        self.canvas.create_image(x*self.tile, y*self.tile, anchor=NW, image=character_img)
+        self.canvas.delete(self.character_delete)
+        self.character_delete = self.canvas.create_image(x*self.tile, y*self.tile, anchor=NW, image=character_img)
 
 class Hero(Character):
     def __init__(self, canvas):
@@ -80,8 +82,6 @@ class Hero(Character):
             if self.x > 0:
                 self.x -= 1
                 self.draw_character(self.x, self.y, self.character_img_left)
-                
 
-        # box.draw(canvas)
 
 game = GameLogic("720", "720")
