@@ -1,19 +1,19 @@
 from tkinter import *
 
 map_1 = [
-        [0,1,0,0,0,0,0,0,0,0],
-        [0,1,0,0,0,0,0,0,0,0],
-        [0,1,1,1,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [1,1,1,1,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0],
+        [0,1,0,0,0,1,0,0,0,0],
+        [0,1,0,1,0,1,0,0,0,0],
+        [0,1,1,1,0,1,0,0,0,0],
+        [0,0,0,0,0,1,0,0,0,0],
+        [1,1,1,1,0,1,0,0,0,0],
+        [0,1,0,0,0,1,0,0,0,0],
+        [0,1,1,1,0,1,1,0,0,0],
+        [0,0,0,0,0,1,1,0,0,0],
+        [0,0,0,0,0,0,0,0,1,0],
+        [0,0,0,0,0,0,1,0,1,1],
         ]
 
-class Game(object):
+class GameLogic(object):
     def __init__(self, width = 0, height = 0):
         self.width = width
         self.height = height
@@ -22,21 +22,21 @@ class Game(object):
         self.canvas.pack()
 
         floormap = Map(self.canvas)
-        
+
         self.root.mainloop()
 
 class Map(object):
     def __init__(self, canvas):
         self.canvas = canvas
-        self.display()
+        self.map_display()
 
     def draw_floor_tile(self, x = 0, y = 0):
-        self.canvas.create_image(x, y, anchor="nw", image=self.floor)
+        self.canvas.create_image(x, y, anchor=NW, image=self.floor)
 
     def draw_wall_tile(self, x = 0, y = 0):
-        self.canvas.create_image(x, y, anchor="nw", image=self.wall)
+        self.canvas.create_image(x, y, anchor=NW, image=self.wall)
 
-    def display(self):
+    def map_display(self):
         tile = 72
         self.wall = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/wall.gif")
         self.floor = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/floor.gif")
@@ -50,4 +50,4 @@ class Map(object):
 class Character():
     pass
 
-game = Game("720", "720")
+game = GameLogic("720", "720")
