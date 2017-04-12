@@ -1,17 +1,6 @@
 from tkinter import *
+from boards import *
 
-map_1 = [
-        [0,1,0,0,0,1,0,0,0,0],
-        [0,1,0,1,0,1,0,0,0,0],
-        [0,1,1,1,0,1,0,0,0,0],
-        [0,0,0,0,0,1,0,0,0,0],
-        [1,1,1,1,0,1,0,0,0,0],
-        [0,1,0,0,0,1,0,0,0,0],
-        [0,1,1,1,0,1,1,0,0,0],
-        [0,0,0,0,0,1,1,0,0,0],
-        [0,0,0,0,0,0,0,0,1,0],
-        [0,0,0,0,0,0,1,0,1,1],
-        ]
 
 class GameLogic(object):
     def __init__(self, width = 0, height = 0):
@@ -22,9 +11,7 @@ class GameLogic(object):
         self.canvas.pack()
 
         floormap = Map(self.canvas)
-        # hero = Hero(self.canvas)
-        hero = Character(self.canvas, "img/hero-down.gif")
-        hero.draw_character(0, 0)
+        hero = Hero(self.canvas)
 
         self.root.mainloop()
 
@@ -34,7 +21,7 @@ class Map(object):
         self.floor = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/floor.gif")
         self.wall = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/wall.gif")
 
-        self.map_display()
+        self.map_display(map_1)
 
     def draw_floor_tile(self, x, y):
         self.canvas.create_image(x, y, anchor=NW, image=self.floor)
@@ -42,30 +29,29 @@ class Map(object):
     def draw_wall_tile(self, x, y):
         self.canvas.create_image(x, y, anchor=NW, image=self.wall)
 
-    def map_display(self):
+    def map_display(self, board):
         tile = 72
-        for row in range(len(map_1)):
-            for cell in range(len(map_1[row])):
-                if map_1[cell][row] == 0:
+        for row in range(len(board)):
+            for cell in range(len(board[row])):
+                if board[cell][row] == 0:
                     self.draw_floor_tile(row*tile, cell*tile)
                 else:
                     self.draw_wall_tile(row*tile, cell*tile)
 
 class Character(object):
-    def __init__(self, canvas, character_img):
+    def __init__(self, canvas):
         self.canvas = canvas
-        self.character_img = character_img
-        self.character_img = PhotoImage(file = character_img)
+        self.x = 0
+        self.y = 0
 
-        # draw_character(0, 0)
+    def draw_character(self, x, y, character_img):
+        self.canvas.create_image(x, y, anchor=NW, image=character_img)
 
-    def draw_character(self, x, y):
-        self.canvas.create_image(x, y, anchor=NW, image=self.character_img)
+class Hero(Character):
+    def __init__(self, canvas):
+        super().__init__(canvas)
+        self.character_img_down = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/hero-down.gif")
 
-# class Hero(Character):
-#     def __init__(self, canvas):
-#         super().__init__(canvas)
-#         self.character_img = PhotoImage(file = "/Users/MrFox/OneDrive/greenfox/the_wanderer_rpg/img/hero-down.gif")
-
+        self.draw_character(self.x, self.y, self.character_img_down)
 
 game = GameLogic("720", "720")
