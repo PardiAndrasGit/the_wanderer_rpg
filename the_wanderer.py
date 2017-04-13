@@ -8,17 +8,50 @@ class GameLogic(object):
         self.height = height
         self.root = Tk()
         self.canvas = Canvas(self.root, width = self.width, height = self.height)
-
         self.canvas.pack()
 
+        self.floormap = Map(self.canvas)
+        self.hero = Hero(self.canvas)
 
-        floormap = Map(self.canvas)
-        hero = Hero(self.canvas)
-
-        self.canvas.bind("<KeyPress>", hero.move_hero)
+        self.canvas.bind("<KeyPress>", self.key_press)
 
         self.canvas.focus_set()
         self.root.mainloop()
+
+    def key_press(self, e):
+        self.e = e
+        if e.keycode == 8320768: # up
+            if self.hero.y > 0:
+                self.hero.y -= 1
+                if self.floormap.get_tile_status(map_1, self.hero.x, self.hero.y) == True:
+                    self.hero.draw_character(self.hero.x, self.hero.y, self.hero.character_img_up)
+                else:
+                    self.hero.y += 1
+                    self.hero.draw_character(self.hero.x, self.hero.y, self.hero.character_img_up)
+        elif e.keycode == 8255233: # down
+            if self.hero.y < 9:
+                self.hero.y += 1
+                if self.floormap.get_tile_status(map_1, self.hero.x, self.hero.y) == True:
+                    self.hero.draw_character(self.hero.x, self.hero.y, self.hero.character_img_down)
+                else:
+                    self.hero.y -= 1
+                    self.hero.draw_character(self.hero.x, self.hero.y, self.hero.character_img_down)
+        elif e.keycode == 8189699: # right
+            if self.hero.x < 9:
+                self.hero.x += 1
+                if self.floormap.get_tile_status(map_1, self.hero.x, self.hero.y) == True:
+                    self.hero.draw_character(self.hero.x, self.hero.y, self.hero.character_img_right)
+                else:
+                    self.hero.x -= 1
+                    self.hero.draw_character(self.hero.x, self.hero.y, self.hero.character_img_right)
+        elif e.keycode == 8124162: # left
+            if self.hero.x > 0:
+                self.hero.x -= 1
+                if self.floormap.get_tile_status(map_1, self.hero.x, self.hero.y) == True:
+                    self.hero.draw_character(self.hero.x, self.hero.y, self.hero.character_img_left)
+                else:
+                    self.hero.x += 1
+                    self.hero.draw_character(self.hero.x, self.hero.y, self.hero.character_img_left)
 
     # def can_move(self):
     #     if floormap.get_tile_status() == True:
@@ -75,39 +108,7 @@ class Hero(Character):
 
         self.draw_character(self.x, self.y, self.character_img_down)
 
-    def move_hero(self, e):
-        hero_on_map = Map(self.canvas)
-        if e.keycode == 8320768: # up
-            if self.y > 0:
-                self.y -= 1
-                if hero_on_map.get_tile_status(map_1, self.x, self.y) == True:
-                    self.draw_character(self.x, self.y, self.character_img_up)
-                else:
-                    self.y += 1
-                    self.draw_character(self.x, self.y, self.character_img_up)
-        elif e.keycode == 8255233: # down
-            if self.y < 9:
-                self.y += 1
-                if hero_on_map.get_tile_status(map_1, self.x, self.y) == True:
-                    self.draw_character(self.x, self.y, self.character_img_down)
-                else:
-                    self.y -= 1
-                    self.draw_character(self.x, self.y, self.character_img_down)
-        elif e.keycode == 8189699: # right
-            if self.x < 9:
-                self.x += 1
-                if hero_on_map.get_tile_status(map_1, self.x, self.y) == True:
-                    self.draw_character(self.x, self.y, self.character_img_right)
-                else:
-                    self.x -= 1
-                    self.draw_character(self.x, self.y, self.character_img_right)
-        elif e.keycode == 8124162: # left
-            if self.x > 0:
-                self.x -= 1
-                if hero_on_map.get_tile_status(map_1, self.x, self.y) == True:
-                    self.draw_character(self.x, self.y, self.character_img_left)
-                else:
-                    self.x += 1
-                    self.draw_character(self.x, self.y, self.character_img_left)
+    def move_hero(self):
+        pass
 
 game = GameLogic("720", "720")
